@@ -9,5 +9,8 @@ fun Application.configureRouting() {
 		get("/") {
 			call.respondText("Hello World!")
 		}
+		post("/create-user"){
+
+		}
 	}
 }
