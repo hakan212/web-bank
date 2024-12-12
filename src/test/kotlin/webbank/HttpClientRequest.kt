@@ -2,12 +2,23 @@ package webbank
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.assertEquals
+
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.testing.*
+import kotlin.test.*
 
 class HttpClientRequest {
 
-    @Test
-    fun requestOK() {
-        assertEquals(1, 100)
-    }
+	@Test
+	fun testRoot() = testApplication {
+		application {
+			module()
+		}
+		val response = client.get("/")
+		assertEquals(HttpStatusCode.OK, response.status)
+		assertEquals("Hello World!", response.bodyAsText())
+	}
 }
