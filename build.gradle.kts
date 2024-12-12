@@ -1,10 +1,12 @@
+import kotlin.collections.mapOf
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
+    application
 }
 
-group = "com.example"
+group = "webbank"
 version = "0.0.1"
 
 application {
@@ -29,4 +31,10 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.jar {
+    manifest {
+        attributes( mapOf("Main-Class" to "webbank.ApplicationKt"))
+    }
 }
