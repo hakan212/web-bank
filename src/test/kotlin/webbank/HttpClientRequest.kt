@@ -35,4 +35,20 @@ class HttpClientRequest {
 		assertEquals("User BobSmith created successfully", responseAsJson.jsonObject.get("text")?.jsonPrimitive?.content)
 		assertTrue(responseAsJson.jsonObject.get("id")?.jsonPrimitive?.content?.length == 10)
 	}
+
+	@Test
+	fun `test that each user has different id`() = testApplication {
+		application {
+			module()
+		}
+		val json = Json { ignoreUnknownKeys = true }
+
+		val firstResponse = client.post("/create-user?BobSmith")
+		val secondResponse = client.post("/create-user?Janet")
+
+		val firstId = json.parseToJsonElement(firstResponse.bodyAsText()).jsonObject.get("id")?.jsonPrimitive?.content
+		val secondId = json.parseToJsonElement(secondResponse.bodyAsText()).jsonObject.get("id")?.jsonPrimitive?.content
+
+		assertNotEquals(firstId, secondId)
+	}
 }
