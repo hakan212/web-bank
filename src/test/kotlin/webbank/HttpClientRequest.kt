@@ -6,11 +6,8 @@ import org.junit.jupiter.api.Test
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import io.ktor.server.application.*
 import io.ktor.server.testing.*
-import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.*
-import kotlin.test.*
 
 
 class HttpClientRequest {
@@ -25,7 +22,6 @@ class HttpClientRequest {
 		assertEquals("Hello World!", response.bodyAsText())
 	}
 
-
 	@Test
 	fun testCreateUser() = testApplication {
 		application {
@@ -38,9 +34,5 @@ class HttpClientRequest {
 		val responseAsJson = json.parseToJsonElement(response.bodyAsText())
 		assertEquals("User BobSmith created successfully", responseAsJson.jsonObject.get("text")?.jsonPrimitive?.content)
 		assertTrue(responseAsJson.jsonObject.get("id")?.jsonPrimitive?.content?.length == 10)
-
 	}
-
-
-
 }
