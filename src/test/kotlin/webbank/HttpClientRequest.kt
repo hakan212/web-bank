@@ -33,7 +33,7 @@ class HttpClientRequest {
 
 		val responseAsJson = json.parseToJsonElement(response.bodyAsText())
 		assertEquals("User BobSmith created successfully", responseAsJson.jsonObject.get("text")?.jsonPrimitive?.content)
-		assertTrue(responseAsJson.jsonObject.get("id")?.jsonPrimitive?.content?.length == 10)
+		assertEquals(responseAsJson.jsonObject.get("id")?.jsonPrimitive?.content?.length, 10)
 	}
 
 	@Test
